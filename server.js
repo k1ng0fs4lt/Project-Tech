@@ -2,24 +2,28 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 app.use('/static', express.static('static'));
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/test', (req, res) => {
-  res.send('Dit is niet fantastisch!!!!')
-})
+// index page
+app.get('/', function(req, res) {
+  res.render('static/index');
+});
 
-app.get('/login', (req, res) => {
-  res.send('Dit is de login pagina')
-})
+// about page
+app.get('/about', function(req, res) {
+  res.render('static/about');
+});
 
-app.get('/user', (req, res) => {
-  res.send('Dit is de user pagina')
-})
+// about page
+app.get('/user', function(req, res) {
+  res.render('static/about');
+});
 
 app.get('/user/:id', (req, res) => {
   const userId = req.params.id; 
