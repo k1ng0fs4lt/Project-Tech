@@ -7,23 +7,19 @@ app.set('view engine', 'ejs');
 
 app.use('/static', express.static('static'));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
 // index page
 app.get('/', function(req, res) {
-  res.render('views/index');
+  res.render('index');
 });
 
 // about page
 app.get('/about', function(req, res) {
-  res.render('static/about');
+  res.render('about');
 });
 
 // about page
 app.get('/user', function(req, res) {
-  res.render('static/about');
+  res.render('user');
 });
 
 
