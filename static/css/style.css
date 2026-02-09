@@ -7,3 +7,13 @@ button {
   margin: 0;
   box-sizing: border-box;
 }
+
+form{
+    width: 20em;
+    display: flex;
+    flex-direction: column;
+}
+
+img{
+    height: 1em;
+}
