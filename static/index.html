@@ -6,6 +6,44 @@
     <title>Document</title>
 </head>
 <body>
-    <img src="/static/images/choppette.png" alt="Choppette">
+    <main>
+        <img src="/static/images/choppette.png" alt="Choppette">
+        <form>
+            <h1>Registreer hieronder!</h1>
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+            <label for="gebruikersnaam">Gebruikersnaam</label>
+            <input type="text" id="gebruikersnaam" required>
+            <label for="wachtwoord">Wachtwoord</label>
+            <input type="password" id="wachtwoord" required>
+            <label for="geboortedatum">Geboortedatum</label>
+            <input type="date" id="geboortedatum" required>
+            <label for="telefoon">Telefoonnummer</label>
+            <input type="text" id="telefoon" maxlength="10" required>
+            <label for="kleur">Favoriete Kleur</label>
+            <label for="myFruit">Woonplaats</label>
+            <input type="text" name="woonplaats" id="woonplaats" list="woonplaatsen" />
+            <datalist id="woonplaatsen">
+            <option>Amsterdam</option>
+            <option>Rotterdam</option>
+            <option>Utrecht</option>
+            <option>Den haag</option>
+            <option>Amstelveen</option>
+            <option>Haarlem</option>
+            <option>Leiden</option>
+            <option>Delft</option>
+            </datalist>
+            <select id="kleur">
+                <option value="rood">Rood</option>
+                <option value="oranje">Oranje</option>
+                <option value="geel">Geel</option>
+                <option value="groen">Groen</option>
+                <option value="blauw">Blauw</option>
+                <option value="paars">Paars</option>
+                <option value="zwart">Zwart</option>
+                <option value="wit">Wit</option>
+            </select>
+        </form>
+    </main>
 </body>
 </html>
