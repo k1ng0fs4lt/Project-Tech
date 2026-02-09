@@ -4,6 +4,7 @@ const port = 3000
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
 app.use('/static', express.static('static'));
 
 app.get('/', (req, res) => {
@@ -12,7 +13,7 @@ app.get('/', (req, res) => {
 
 // index page
 app.get('/', function(req, res) {
-  res.render('static/index');
+  res.render('views/index');
 });
 
 // about page
@@ -24,6 +25,13 @@ app.get('/about', function(req, res) {
 app.get('/user', function(req, res) {
   res.render('static/about');
 });
+
+
+
+
+
+
+
 
 app.get('/user/:id', (req, res) => {
   const userId = req.params.id; 
@@ -37,6 +45,12 @@ app.get('/about', (req, res) => {
 app.get('/register', (req, res) => {
   res.send('Dit is de registreer pagina!')
 })
+
+
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
