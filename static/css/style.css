@@ -9,11 +9,12 @@ button {
 }
 
 form{
-    width: 20em;
+    width: 25em;
     display: flex;
     flex-direction: column;
 }
 
 img{
-    height: 1em;
+    height: 10em;
+    width: auto;
 }

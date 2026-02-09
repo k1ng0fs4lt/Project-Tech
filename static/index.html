@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 <body>
@@ -21,7 +21,6 @@
             <input type="date" id="geboortedatum" required>
             <label for="telefoon">Telefoonnummer</label>
             <input type="text" id="telefoon" maxlength="10" required>
-            <label for="kleur">Favoriete Kleur</label>
             <label for="woonplaats">Woonplaats</label>
             <input type="text" name="woonplaats" id="woonplaats" list="woonplaatsen" />
             <datalist id="woonplaatsen">
@@ -34,6 +33,7 @@
             <option>Leiden</option>
             <option>Delft</option>
             </datalist>
+            <label for="kleur">Favoriete Kleur</label>
             <select id="kleur">
                 <option value="rood">Rood</option>
                 <option value="oranje">Oranje</option>
@@ -43,8 +43,8 @@
                 <option value="paars">Paars</option>
                 <option value="zwart">Zwart</option>
                 <option value="wit">Wit</option>
-            </select>
-            <input type="submit">Registreer
+            </select><br>
+            <input type="submit" value="Registreer">
         </form>
     </main>
 </body>
