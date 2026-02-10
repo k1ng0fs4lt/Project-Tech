@@ -13,19 +13,19 @@
     <div class="row">
     <div class="col-sm-8">
         <div class="jumbotron">
-        <h1>This is great</h1>
+        <h1>This is the registration form</h1>
         <p>Welcome to templating using EJS</p>
         </div>
     </div>
     </div>
     <div class="row">
-        <form action="addMovie" method="post">
+        <form action="/geregistreerd" method="post">
             <h2>Voeg een film toe!</h2>
-            <label for="titel">Titel</label>
-            <input type="text"  id="titel" name="titel">
-            <label for="beschrijving">Beschrijving</label>
-            <input type="text"  id="beschrijving" name="beschrijving">
-            <input type="submit" value="Toevoegen">
+            <label for="titel">Gebruikersnaam</label>
+            <input type="text"  name="gebruikersnaam">
+            <label for="wachtwoord">Wachtwoord</label>
+            <input type="password" name="wachtwoord">
+            <input type="submit" value="Registreren">
         </form>
     </div>
 </main>

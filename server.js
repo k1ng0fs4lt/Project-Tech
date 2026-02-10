@@ -6,6 +6,7 @@ const port = 3000
 app.set('view engine', 'ejs');
 
 app.use('/static', express.static('static'));
+app.use(express.urlencoded({extended: true}))
 
 // index page
 app.get('/', function(req, res) {
@@ -17,9 +18,38 @@ app.get('/about', function(req, res) {
   res.render('about');
 });
 
+// add page
 app.get(`/add`, function(req, res) {
   res.render(`add`);
 })
+
+// add page
+app.get(`/detail`, function(req, res) {
+  res.render(`detail`);
+})
+
+// about page
+app.get('/inloggen', function(req, res) {
+  res.render('inloggen');
+});
+
+// add page
+app.get(`/registreren`, function(req, res) {
+  res.render(`registreren`);
+})
+
+// // add page
+// app.post(`/geregistreerd`, function(req, res) {
+//   res.render(`geregistreerd`);
+// })
+
+app.post('/geregistreerd', addUser)
+
+function addUser(req, res) {
+  res.send(`U bent geregistreerd met:
+    gebruikersnaam: ${req.body.gebruikersnaam},
+    wachtwoord: ${req.body.wachtwoord}`)
+}
 
 // about page
 app.get('/user', function(req, res) {
