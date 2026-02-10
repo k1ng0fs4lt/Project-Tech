@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <%- include('partials/head') %>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <header>
+        <%- include('partials/header') %>
+    </header>
+    <main>
+    <div class="jumbotron">
+        <h1>This is great</h1>
+        <p>Welcome to templating using EJS</p>
+    </div>
+    </main>
+    <footer>
+        <%- include('partials/footer') %>
+    </footer>
 </body>
 </html>

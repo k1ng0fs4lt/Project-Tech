@@ -17,10 +17,15 @@ app.get('/about', function(req, res) {
   res.render('about');
 });
 
+app.get(`/add`, function(req, res) {
+  res.render(`add`);
+})
+
 // about page
 app.get('/user', function(req, res) {
   res.render('user');
 });
+
 
 
 
