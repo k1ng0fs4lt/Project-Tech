@@ -38,6 +38,16 @@ app.get(`/registreren`, function(req, res) {
   res.render(`registreren`);
 })
 
+app.get(`/ifelse`, function(req, res){
+  res.render(`ifelse`, {
+    age: 11
+  });
+})
+
+app.get(`/loop`, function(req, res){
+  res.render(`loop`);
+})
+
 // // add page
 // app.post(`/geregistreerd`, function(req, res) {
 //   res.render(`geregistreerd`);
