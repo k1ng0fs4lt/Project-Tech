@@ -50,7 +50,7 @@ app.post('/ingelogd', function(req, res) {
   );
 
   if (gebruiker) {
-    res.send(`U bent ingelogd als: ${gebruiker.gebruikersnaam}`);
+    res.render(`ingelogd`, {gebruiker: gebruiker.gebruikersnaam});
   } else {
     res.send("U bent niet ingelogd");
   }
