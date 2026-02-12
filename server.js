@@ -2,6 +2,10 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+const credentials = require(`./credentials.json`)
+const users = credentials.users;
+
+
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -32,17 +36,26 @@ app.get(`/detail`, function(req, res) {
 
 // about page
 app.get('/inloggen', function(req, res) {
-  const inlogGegevens = {gebruikersnaam: "kevin", wachtwoord: "1234"}
   res.render('inloggen');
 });
 
-app.post(`/ingelogd`, function(req, res){
-  if(req.body.gebruikersnaam === "kevin" || req.body.wachtwoord === "1234"){
-    res.send(`U bent ingelogd`)
+app.post('/ingelogd', function(req, res) {
+
+  const gebruikersnaam = req.body.gebruikersnaam;
+  const wachtwoord = req.body.wachtwoord;
+
+  const gebruiker = users.find(user => 
+    user.gebruikersnaam === gebruikersnaam &&
+    user.wachtwoord === wachtwoord
+  );
+
+  if (gebruiker) {
+    res.send(`U bent ingelogd als: ${gebruiker.gebruikersnaam}`);
   } else {
-    res.send(`U bent niet ingelogd`)
+    res.send("U bent niet ingelogd");
   }
-})
+
+});
 
 // add page
 app.get(`/registreren`, function(req, res) {
