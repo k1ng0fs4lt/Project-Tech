@@ -28,6 +28,8 @@ app.get(`/detail`, function(req, res) {
   res.render(`detail`);
 })
 
+
+
 // about page
 app.get('/inloggen', function(req, res) {
   const inlogGegevens = {gebruikersnaam: "kevin", wachtwoord: "1234"}
@@ -47,6 +49,15 @@ app.get(`/registreren`, function(req, res) {
   res.render(`registreren`);
 })
 
+app.post('/geregistreerd', addUser)
+
+function addUser(req, res) {
+  res.send(`U bent geregistreerd met:
+    gebruikersnaam: ${req.body.gebruikersnaam},
+    wachtwoord: ${req.body.wachtwoord}`)
+}
+
+
 app.get(`/ifelse`, function(req, res){
   res.render(`ifelse`, {
     age: 11
@@ -59,18 +70,6 @@ app.get(`/loop`, function(req, res){
 
 
 
-// // add page
-// app.post(`/geregistreerd`, function(req, res) {
-//   res.render(`geregistreerd`);
-// })
-
-app.post('/geregistreerd', addUser)
-
-function addUser(req, res) {
-  res.send(`U bent geregistreerd met:
-    gebruikersnaam: ${req.body.gebruikersnaam},
-    wachtwoord: ${req.body.wachtwoord}`)
-}
 
 
 
@@ -97,9 +96,6 @@ app.get('/register', (req, res) => {
 
 
 
-
-
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
@@ -107,3 +103,4 @@ app.listen(port, () => {
 app.use((req, res, next) => {
   res.status(404).send("404 Not Found – the page does not exist");
 });
+
