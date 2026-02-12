@@ -37,7 +37,7 @@ app.get('/inloggen', function(req, res) {
 });
 
 app.post(`/ingelogd`, function(req, res){
-  if(req.body.gebruikersnaam == "kevin" || req.body.wachtwoord == "1234"){
+  if(req.body.gebruikersnaam === "kevin" || req.body.wachtwoord === "1234"){
     res.send(`U bent ingelogd`)
   } else {
     res.send(`U bent niet ingelogd`)
