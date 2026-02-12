@@ -30,8 +30,17 @@ app.get(`/detail`, function(req, res) {
 
 // about page
 app.get('/inloggen', function(req, res) {
+  const inlogGegevens = {gebruikersnaam: "kevin", wachtwoord: "1234"}
   res.render('inloggen');
 });
+
+app.post(`/ingelogd`, function(req, res){
+  if(req.body.gebruikersnaam == "kevin" || req.body.wachtwoord == "1234"){
+    res.send(`U bent ingelogd`)
+  } else {
+    res.send(`U bent niet ingelogd`)
+  }
+})
 
 // add page
 app.get(`/registreren`, function(req, res) {
@@ -48,6 +57,8 @@ app.get(`/loop`, function(req, res){
   res.render(`loop`);
 })
 
+
+
 // // add page
 // app.post(`/geregistreerd`, function(req, res) {
 //   res.render(`geregistreerd`);
@@ -61,10 +72,6 @@ function addUser(req, res) {
     wachtwoord: ${req.body.wachtwoord}`)
 }
 
-// about page
-app.get('/user', function(req, res) {
-  res.render('user');
-});
 
 
 
