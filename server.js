@@ -1,8 +1,15 @@
 require('dotenv').config() 
+const express = require('express')
+const app = express()
+const port = 3000;
+
+
+
+
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb')
 // Construct URL used to connect to database from info in the .env file
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?appName=${process.env.DB_NAME}?retryWrites=true&w=majority`;
 // Create a MongoClient
 const client = new MongoClient(uri, {
     serverApi: {
@@ -23,9 +30,16 @@ client.connect()
   })
 
 
-const express = require('express')
-const app = express()
-const port = 3000
+    const db = client.db(process.env.DB_NAME);
+    const collection = db.collection(process.env.DB_COLLECTION);
+
+async function listAllUsers(req, res){
+  data = await collection.find().toArray()
+  res.send(data);
+  
+}
+
+app.get(`/gebruikers`, listAllUsers)
 
 const credentials = require(`./credentials.json`)
 const users = credentials.users;
@@ -41,6 +55,8 @@ app.use(express.urlencoded({extended: true}))
 app.get('/', function(req, res) {
   res.render('index');
 });
+
+
 
 // about page
 app.get('/about', function(req, res) {
@@ -59,41 +75,73 @@ app.get(`/detail`, function(req, res) {
 
 
 
-// about page
-app.get('/inloggen', function(req, res) {
-  res.render('inloggen');
-});
-
-app.post('/ingelogd', function(req, res) {
-
-  const gebruikersnaam = req.body.gebruikersnaam;
-  const wachtwoord = req.body.wachtwoord;
-
-  const gebruiker = users.find(user => 
-    user.gebruikersnaam === gebruikersnaam &&
-    user.wachtwoord === wachtwoord
-  );
-
-  if (gebruiker) {
-    res.render(`ingelogd`, {gebruiker: gebruiker.gebruikersnaam});
-  } else {
-    res.send("U bent niet ingelogd");
-  }
-
-});
 
 // add page
 app.get(`/registreren`, function(req, res) {
   res.render(`registreren`);
 })
 
-app.post('/geregistreerd', addUser)
-
-function addUser(req, res) {
-  res.send(`U bent geregistreerd met:
-    gebruikersnaam: ${req.body.gebruikersnaam},
-    wachtwoord: ${req.body.wachtwoord}`)
+// ---- Route ----
+app.post("/geregistreerd", addUser);
+ 
+async function addUser(req, res) {
+  try {
+    const gebruikersnaam = (req.body.gebruikersnaam || "").trim();
+    const wachtwoord = req.body.wachtwoord || "";
+ 
+    if (!gebruikersnaam || !wachtwoord) {
+      return res.status(400).send("Voer allebei de velden in");
+    }
+ 
+    const usersCollection = db.collection(process.env.USERS_COLLECTION || "users");
+ 
+    const bestaatAl = await usersCollection.findOne({ gebruikersnaam });
+    if (bestaatAl) {
+      return res.status(409).send("Deze gebruikersnaam bestaat al");
+    }
+ 
+    await usersCollection.insertOne({ gebruikersnaam, wachtwoord, createdAt: new Date() });
+ 
+    return res.status(201).send(`U bent geregistreerd met gebruikersnaam: ${gebruikersnaam}`);
+  } catch (err) {
+    console.error("Registratie fout:", err);
+    return res.status(500).send("Er ging iets mis bij het registreren");
+  }
 }
+
+// about page
+app.get('/inloggen', function(req, res) {
+  res.render('inloggen');
+});
+
+app.post('/ingelogd', async function(req, res) {
+  try {
+    const db = client.db(process.env.DB_NAME);
+    const usersCollection = db.collection(process.env.USERS_COLLECTION || "users");
+
+    const gebruikersnaam = req.body.gebruikersnaam
+    const wachtwoord = req.body.wachtwoord
+    // 1. Zoek gebruiker op gebruikersnaam
+    const gebruiker = await usersCollection.findOne({ gebruikersnaam: gebruikersnaam });
+
+
+    if (!gebruiker) {
+      return res.render('inloggen', { err: 'Gebruiker bestaat niet' });
+    }
+
+    // 2. Controleer wachtwoord
+    if (gebruiker.wachtwoord !== wachtwoord) {
+      return res.render('inloggen', { err: 'Wachtwoord klopt niet' });
+    }
+
+    // 3. Alles klopt
+    res.render('ingelogd', { gebruiker: gebruiker.gebruikersnaam });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Er is iets fout gegaan");
+  }
+});
 
 
 app.get(`/ifelse`, function(req, res){
@@ -105,16 +153,6 @@ app.get(`/ifelse`, function(req, res){
 app.get(`/loop`, function(req, res){
   res.render(`loop`);
 })
-
-
-
-
-
-
-
-
-
-
 
 
 
